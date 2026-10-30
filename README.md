@@ -26,25 +26,12 @@ Department of Computer Science, Virginia Tech
 <b>Overview of IntroConformal.</b> An LVLM response is decomposed into atomic claims, each claim is scored with a model-internal signal (S<sub>sem</sub> or S<sub>prob</sub>), and claims below a CRC-calibrated threshold are filtered out.
 </em></p>
 
-## 📢 News
-
-- **[Oct 2026]** IntroConformal is published in the EMNLP 2026 main conference proceedings.
-- **[Coming soon]** Code and calibration/test data will be released in this repository.
-
 ## 📖 Overview
 
 Large Vision-Language Models (LVLMs) frequently generate claims that are not grounded in the input image, and users have no reliable way to tell which parts of a response to trust. Existing conformal factuality methods score claims with generation-time token probabilities, which are unreliable for confident hallucinations, or with external verifiers such as CLIP, which add extra models and dependencies.
 
 **IntroConformal** is a **training-free Conformal Risk Control (CRC)** framework that provides **finite-sample, distribution-free factuality guarantees** for LVLMs using signals from **the model itself**, with no external verifier.
 
-### Key contributions
-
-- **Introspective conformity scores.** We study two model-internal signals for claim-level factuality:
-  - **Layer-wise semantic stability (S<sub>sem</sub>):** cosine similarity between averaged hidden states of intermediate layers and final layers for each claim token. It is logit-free and requires only hidden states.
-  - **Verification probability (S<sub>prob</sub>):** the model is asked whether a claim is supported by the image, and the score is P(Yes) / (P(Yes) + P(No)) from a single forward pass with no sampling.
-- **Rigorous calibration.** Thresholds are selected with Learn-Then-Test (LTT) using a Hoeffding upper confidence bound and a Bonferroni correction over candidate thresholds, giving a guarantee that holds with probability at least 1 − δ.
-- **Broad evaluation.** Five LVLMs across three tasks: scene understanding, fine-grained captioning, and document understanding.
-- **Strong results.** The risk bound is satisfied in every setting, and S<sub>prob</sub> reduces abstention while matching or outperforming verifier-based baselines on claim-level discrimination.
 
 ## 🔍 Method
 
@@ -89,14 +76,6 @@ Empirical risk vs. target α, abstention vs. desired coverage, and test risk/abs
 | IntroConformal (S<sub>sem</sub>) | 64% | – |
 | **IntroConformal (S<sub>prob</sub>)** | **25%** | **0.581** |
 
-**Comparison with hallucination mitigation baselines (LLaVA-1.5-7B, MSCOCO)**
-
-| Method | TPR ↑ | Response Accuracy ↑ |
-|:--|:--:|:--:|
-| Woodpecker / CoVe / VCD / ICD | 20–59% | 20–41% |
-| CONFLVLM | 95.3% | 90% |
-| **IntroConformal (S<sub>prob</sub>)** | **97.4%** | **91%** |
-
 Please see the paper for full results on all five models and three tasks, as well as the label-noise robustness analysis.
 
 ### Qualitative examples
@@ -140,26 +119,7 @@ Planned contents:
 - [ ] Calibration and test data release
 
 <!--
-### Installation
 
-```bash
-git clone https://github.com/Atabuzzaman/Introconformal.git
-cd Introconformal
-conda create -n introconformal python=3.10 -y
-conda activate introconformal
-pip install -r requirements.txt
-```
-
-### Quick Start
-
-```bash
-# 1. Extract introspective scores
-python scripts/extract_scores.py --model llava-1.5-7b --dataset mscoco
-
-# 2. Run conformal calibration and evaluation
-python scripts/run_crc.py --model llava-1.5-7b --dataset mscoco --alpha 0.10
-```
--->
 
 ## 📝 Citation
 
