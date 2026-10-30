@@ -20,7 +20,7 @@ Department of Computer Science, Virginia Tech
 
 <!-- FIGURE: Pipeline overview (Figure 1 in the paper). Export to assets/pipeline.png -->
 <p align="center">
-  <img src="assets/pipeline.png" alt="IntroConformal pipeline" width="90%">
+  <img src="assets/method.png" alt="IntroConformal pipeline" width="90%">
 </p>
 <p align="center"><em>
 <b>Overview of IntroConformal.</b> An LVLM response is decomposed into atomic claims, each claim is scored with a model-internal signal (S<sub>sem</sub> or S<sub>prob</sub>), and claims below a CRC-calibrated threshold are filtered out.
